@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Role;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Auth\LoginController;
+use illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +17,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('admin/dashboard');
+});
+
+Route::get('/login', function () {
+  return view('auth.singIn');
+});
+
+Route::GET('/create/admin' ,[AuthController::class,'createCustomer']);
+Route::GET('login/admin' ,[AuthController::class,'ShowLoginForm']);
+Route::POST('login/admin' ,[LoginController::class,'loginUser']);
+Route::get('/createRole', function () {
+   $role         =  new Role();
+   $role->name   =  'Customer';
+  $role->slug   =  'customer';
+  $role->save();
+});
+
+
+Route::get('/logout', function(){
+  Auth::logout();
+  return redirect('/login');
 });
