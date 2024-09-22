@@ -269,6 +269,8 @@ function savaData(id, tax) {
 }
 </script>
 <script>
+    let imageCounter = 1;
+    let count= 111;
 $("#addAttributeButton").click(function(e) {
     
     var html = '';
@@ -289,15 +291,13 @@ $("#addAttributeButton").click(function(e) {
         html += '<div class="row mb-3"><label for="inputEnterYourName" class="col-sm-3 col-form-label">Product Image</label>' +
         '<div class="col-sm-9"><div class="row">' +
         '<div class="col-sm-12"><button type="button" class="btn btn-primary my-2 " id="addAttrImages" onclick="addImages1(\''+attrImage+'\',\''+count+'\')">Add Images</button></div>' +
-        '<div class="col-sm-8" id="attrImage_'+ imageCount+'"><input type="file" name="attrImage'+ imageCount+'"[]" class="form-control" id="inputEnterYourName" placeholder="Enter Product Name"></div>' +
+        '<div class="col-sm-8" id="attrImage_'+ imageCounter+'"><input type="file" name="attrImage'+ imageCounter+'"[]" class="form-control" id="inputEnterYourName" placeholder="Enter Product Name"></div>' +
         '</div></div></div><hr/>';
 
     $('#addAttr').append(html);
 
 })
 
-
-let imageCounter = 1;
 function addImages1(id) {
     imageCounter++;
     const imageId = 'attrImage_' + imageCounter;
