@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\HomeBanner;
 use Validator;
+use Illuminate\Support\Facades\File;
 use App\Traits\ApiResponse;
+
 use DB;
 class HomeBannerController extends Controller
 {

@@ -19,6 +19,14 @@
 
 	<script src="{{asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
+	<script src="{{asset('assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
+	<script src="{{asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
+	<script src="{{asset('jqueryplugin/jquery.multi-select.min.js')}}"></script>
+
+	<script src="{{asset('jqueryplugin/jquery.multi-select.js')}}"></script>
+
+	<script src='https://cdn.tiny.cloud/1/vdqx2klew412up5bcbpwivg1th6nrh3murc6maz8bukgos4v/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
 
 	<script>
 $(document).ready(function() {
@@ -52,14 +60,7 @@ $(document).ready(function() {
         .appendTo('#example2_wrapper .col-md-6:eq(0)');
 });
 	</script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css"
-	    integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA=="
-	    crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
-	    integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
-	    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+	
 	<script>
 $(document).ready(function(f) {
     $('#formSubmit').on('submit', (function(e) {
@@ -119,7 +120,7 @@ function deleteData(id, table) {
     if (confirm(text) == true) {
 		$.ajax({
         type: "GET",
-        url: "{{url('admin/deleteData')}}/" + id + "/" + table + "",
+        url: "{{url('admin/deleteData')}}/"+id+"/"+table+"",
         //url:'admin/profile',
         cache: false,
         data: '',
@@ -153,3 +154,35 @@ function deleteData(id, table) {
 
 }
 	</script>
+
+<script>
+		tinymce.init({
+		  selector: '#mytextarea'
+		});
+	</script>
+
+<script type="text/javascript">
+    $(function(){
+        $('#attribute_id').multiSelect();
+        $('#people').multiSelect();
+        $('#line-wrap-example').multiSelect({
+            positionMenuWithin: $('.position-menu-within')
+        });
+        $('#categories').multiSelect({
+            noneText: 'All categories',
+            presets: [
+                {
+                    name: 'All categories',
+                    all: true
+                },
+                {
+                    name: 'My categories',
+                    options: ['a', 'c']
+                }
+            ]
+        });
+        $('#modal-example').multiSelect({
+            'modalHTML': '<div class="multi-select-modal">'
+        });
+    });
+    </script>

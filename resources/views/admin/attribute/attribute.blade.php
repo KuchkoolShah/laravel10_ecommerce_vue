@@ -36,8 +36,8 @@
                 <div class="row row-cols-auto g-3">
                     <div class="col-md-4">
                         <button type="button" class="btn btn-outline-primary px-5 mb-2" data-bs-toggle="modal"
-                            data-bs-target="#exampleExtraLargeModal" onclick="savaData('0','','','')">Add
-                            Banner</button>
+                            data-bs-target="#exampleExtraLargeModal" onclick="savaData('0','','')">Add
+                            Attribute</button>
 
                     </div>
                     <div class="col-md-4">
@@ -52,29 +52,25 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Text</th>
-                                <th>Link</th>
-                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Slug</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if($home_banner->count() > 0)
-                            @foreach($home_banner as $home_banners)
+                            @if($attribute->count() > 0)
+                            @foreach($attribute as $attributes)
                             <tr>
-                                <td>{{$home_banners->id}}</td>
-                                <td>{{$home_banners->text}}</td>
-                                <td>{{$home_banners->link}}</td>
-                                <td> <img alt="" title="" class="img-fluid rounded" src="{{asset($home_banners->image) }}">
-                                </td>
-
+                                <td>{{$attributes->id}}</td>
+                                <td>{{$attributes->name}}</td>
+                                <td>{{$attributes->slug}}</td>
                                 <td>
                                     <button type="button" class="btn btn-outline-primary px-5 mb-2"
                                         data-bs-toggle="modal" data-bs-target="#exampleExtraLargeModal"
-                                        onclick="savaData('{{$home_banners->id}}','{{$home_banners->text}}','{{$home_banners->link}}','{{$home_banners->image}}' )">Update</button>
+                                        onclick="savaData('{{$attributes->id}}','{{$attributes->name}}','{{$attributes->slug}}' )">Update</button>
                                         <button type="button" class="btn btn-outline-danger px-5 mb-2"
                                        
-                                        onclick="deleteData('{{$home_banners->id}}' ,'home_banners' )">Delete</button>
+                                        onclick="deleteData('{{$attributes->id}}' ,'attributes' )">Delete</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -87,9 +83,8 @@
                         <tfoot>
                             <tr>
                                 <th>Id</th>
-                                <th>Text</th>
-                                <th>Link</th>
-                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Slug</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -103,10 +98,10 @@
                 <div class="modal fade" id="exampleExtraLargeModal">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <form id="formSubmit" action="{{url('admin/home_banner')}}" enctype="multipart/form-data">
+                            <form id="formSubmit" action="{{url('admin/update_attribute_name')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Home Banner</h5>
+                                    <h5 class="modal-title">Attribute</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -116,40 +111,27 @@
                                             <div class="card-title d-flex align-items-center">
                                                 <div><i class="bx bxs-user me-1 font-22 text-info"></i>
                                                 </div>
-                                                <h5 class="mb-0 text-info">User</h5>
+                                                <h5 class="mb-0 text-info">Attribute</h5>
                                             </div>
                                             <hr />
                                             <div class="row mb-3">
                                                 <label for="inputEnterYourName"
-                                                    class="col-sm-3 col-form-label">Text</label>
+                                                    class="col-sm-3 col-form-label">Name</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="text" id="enter_text"
+                                                    <input type="text" class="form-control" name="name" id="enter_name"
                                                         placeholder="Enter Your Name">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Link</label>
+                                                <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Slug</label>
 
                                                 <div class="col-sm-9">
-                                                    <input type="text"  class="form-control" name="link" id="enter_link"
-                                                        placeholder="Phone No">
+                                                    <input type="text"  class="form-control" name="slug" id="enter_slug"
+                                                        placeholder="Enter Your Slug">
+                                                        <input type="hidden" class="form-control" id="enter_id" name="id"
+                                                        placeholder="Enter Your Slug">
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
-                                                <label for="inputEmailAddress2"
-                                                    class="col-sm-3 col-form-label">Image</label>
-                                                <div class="col-sm-9">
-                                                    <input type="hidden"  class="form-control" id="enter_id" name="id"
-                                                        placeholder="Email Address">
-                                                    <input type="file" class="form-control" name="image" id="photo">
-                                                    <div id="image_key">
-                                                        <img class="img-fluid rounded mt-5" id="imgPreview"
-                                                            height="200px;" width="250px;" src="">
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -170,19 +152,11 @@
 </div>
 
 <script>
-function savaData(id, text, link, image) {
-    $('#enter_text').val(text);
-    $('#enter_link').val(link);
+function savaData(id, name, slug,) {
+    $('#enter_name').val(name);
+    $('#enter_slug').val(slug);
     $('#enter_id').val(id);
-    if (image == '') {
-        var key_image = "{{URL::asset('images/upload.jpg')}}";
-        $('#photo').prop('required' , false);
-    } else {
-        var key_image = "{{URL::asset('' )}}/" + image + "";
-        $('#photo').prop('required' , false);
-    }
-    var html = '<img src="' + key_image + '" id="imgPreview"  class="img-fluid rounded mt-5" id="imgPreview" >';
-    $('#image_key').html(html);
+  
 }
 </script>
 @endsection

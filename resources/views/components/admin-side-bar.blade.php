@@ -35,7 +35,6 @@
                         <div class="menu-title">Manage size</div>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{url('admin/manage_color')}}">
                         <div class="parent-icon"><i class='bx bx-cookie'></i>
@@ -43,9 +42,67 @@
                         <div class="menu-title">Manage Color</div>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{url('admin/brand')}}">
+                        <div class="parent-icon"><i class='bx bx-cookie'></i>
+                        </div>
+                        <div class="menu-title">Brand</div>
+                    </a>
+                </li>
 
                 <li>
+                    <a href="{{url('admin/tax')}}">
+                        <div class="parent-icon"><i class='bx bx-cookie'></i>
+                        </div>
+                        <div class="menu-title">Tax</div>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class='bx bx-cart'></i>
+                        </div>
+                        <div class="menu-title">Attribute</div>
+                    </a>
+                    <ul>
+                        <li> <a href="{{url('admin/attribute_name')}}"><i class="bx bx-right-arrow-alt"></i>Attribute Name</a>
+                        </li>
+                        <li> <a href="{{url('admin/attribute_value')}}"><i class="bx bx-right-arrow-alt"></i>Attribute Value</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class='bx bx-cart'></i>
+                        </div>
+                        <div class="menu-title">Category</div>
+                    </a>
+                    <ul>
+                        <li> <a href="{{url('admin/category')}}"><i class="bx bx-right-arrow-alt"></i>Category</a>
+                        </li>
+                        <li> <a href="{{url('admin/category_attribute')}}"><i class="bx bx-right-arrow-alt"></i>Category Attribute</a>
+                        </li>
+                        
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class='bx bx-cart'></i>
+                        </div>
+                        <div class="menu-title">Product</div>
+                    </a>
+                    <ul>
+                        <li> <a href="{{url('admin/product')}}"><i class="bx bx-right-arrow-alt"></i>Product</a>
+                        </li>
+                       
+                        
+                        
+                    </ul>
+                </li>
                     <a href="javascript:;" class="has-arrow">
                         <div class="parent-icon"><i class='bx bx-cart'></i>
                         </div>

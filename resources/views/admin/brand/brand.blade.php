@@ -36,8 +36,8 @@
                 <div class="row row-cols-auto g-3">
                     <div class="col-md-4">
                         <button type="button" class="btn btn-outline-primary px-5 mb-2" data-bs-toggle="modal"
-                            data-bs-target="#exampleExtraLargeModal" onclick="savaData('0','','','')">Add
-                            Banner</button>
+                            data-bs-target="#exampleExtraLargeModal" onclick="savaData('0','','')">Add
+                            Brand</button>
 
                     </div>
                     <div class="col-md-4">
@@ -53,28 +53,26 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Text</th>
-                                <th>Link</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if($home_banner->count() > 0)
-                            @foreach($home_banner as $home_banners)
+                            @if($brand->count() > 0)
+                            @foreach($brand as $brands)
                             <tr>
-                                <td>{{$home_banners->id}}</td>
-                                <td>{{$home_banners->text}}</td>
-                                <td>{{$home_banners->link}}</td>
-                                <td> <img alt="" title="" class="img-fluid rounded" src="{{asset($home_banners->image) }}">
+                                <td>{{$brands->id}}</td>
+                                <td>{{$brands->text}}</td>
+                                <td> <img alt="" title="" class="img-fluid rounded" src="{{asset($brands->image) }}">
                                 </td>
 
                                 <td>
                                     <button type="button" class="btn btn-outline-primary px-5 mb-2"
                                         data-bs-toggle="modal" data-bs-target="#exampleExtraLargeModal"
-                                        onclick="savaData('{{$home_banners->id}}','{{$home_banners->text}}','{{$home_banners->link}}','{{$home_banners->image}}' )">Update</button>
+                                        onclick="savaData('{{$brands->id}}','{{ $brands->text}}','{{$brands->image}}' )">Update</button>
                                         <button type="button" class="btn btn-outline-danger px-5 mb-2"
                                        
-                                        onclick="deleteData('{{$home_banners->id}}' ,'home_banners' )">Delete</button>
+                                        onclick="deleteData('{{$brands->id}}' ,'brands' )">Delete</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -88,7 +86,6 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Text</th>
-                                <th>Link</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -103,7 +100,7 @@
                 <div class="modal fade" id="exampleExtraLargeModal">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <form id="formSubmit" action="{{url('admin/home_banner')}}" enctype="multipart/form-data">
+                            <form id="formSubmit" action="{{url('admin/brand/update')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-header">
                                     <h5 class="modal-title">Home Banner</h5>
@@ -125,14 +122,6 @@
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="text" id="enter_text"
                                                         placeholder="Enter Your Name">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Link</label>
-
-                                                <div class="col-sm-9">
-                                                    <input type="text"  class="form-control" name="link" id="enter_link"
-                                                        placeholder="Phone No">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -170,9 +159,8 @@
 </div>
 
 <script>
-function savaData(id, text, link, image) {
+function savaData(id, text,  image) {
     $('#enter_text').val(text);
-    $('#enter_link').val(link);
     $('#enter_id').val(id);
     if (image == '') {
         var key_image = "{{URL::asset('images/upload.jpg')}}";

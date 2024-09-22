@@ -5,8 +5,9 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<!--favicon-->
-	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+	<link rel="icon" href="{{asset('assets/images/favicon-32x32.png')}}" type="image/png" />
 	<!--plugins-->
+	<script src="{{asset('assets/js/jquery.min.js')}}"></script>
 	<link href="{{asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet"/>
 	<link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
@@ -27,7 +28,11 @@
 	<link rel="stylesheet" href="{{asset('snackbar/dist/js-snackbar.css')}}" />
 	<link rel="stylesheet" href="{{asset('snackbar/src/js-snackbar.css')}}" />
 	<link rel="stylesheet" href="{{asset('snackbar/dist/js-snackbar.min.css')}}" />
+	<link rel="stylesheet" href="{{asset('jqueryplugin/example-style.css')}}" />
+	<link rel="stylesheet" href="{{asset('jqueryplugin/demo-style.css')}}" />
+
 	
 	<link href="{{asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<title>Rocker - Bootstrap 5 Admin Dashboard Template</title>
 </head>
