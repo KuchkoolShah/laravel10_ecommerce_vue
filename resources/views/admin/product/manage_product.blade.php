@@ -50,7 +50,8 @@
                         <h6 class="mb-0 text-uppercase">Horizontal Form</h6>
                         <hr>
                         <div class="card border-top border-0 border-4 border-info">
-                            <form>
+                        <form id="formSubmit" action="{{url('admin/product/store')}}" enctype="multipart/form-data">
+                        @csrf
                                 <div class="card-body">
 
                                     <div class="border p-4 rounded">
@@ -64,22 +65,40 @@
                                             <label for="inputEnterYourName" class="col-sm-3 col-form-label">Product
                                                 Name</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="inputEnterYourName"
+                                                <input type="text" class="form-control" name="name" id="inputEnterYourName"
                                                     placeholder="Enter Product Name">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="inputPhoneNo2" class="col-sm-3 col-form-label">Slug</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="inputPhoneNo2"
+                                                <input type="text" name="slug" class="form-control" id="inputPhoneNo2"
                                                     placeholder="Slug">
+                                                    <input type="hidden" name="id" class="form-control" value="{{$id}}" id="inputPhoneNo2"
+                                                    placeholder="Slug">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEnterYourName" class="col-sm-3 col-form-label">Product
+                                                Keywords</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="keyword" id="inputEnterYourName"
+                                                    placeholder="Enter Product keywords">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEnterYourName" class="col-sm-3 col-form-label">Product
+                                                Item code</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="item_code" id="inputEnterYourName"
+                                                    placeholder="Enter Product Item code">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="inputEnterYourName" class="col-sm-3 col-form-label">Product
                                                 Image</label>
                                             <div class="col-sm-9">
-                                                <input type="file" class="form-control" id="inputEnterYourName"
+                                                <input type="file" class="form-control" name="image" id="inputEnterYourName"
                                                     placeholder="Enter Product Name">
                                             </div>
                                         </div>
@@ -94,7 +113,7 @@
                                         <div class="row mb-3">
                                             <label for="inputAddress4" class="col-sm-3 col-form-label">Category</label>
                                             <div class="col-sm-9">
-                                                <select name="category" id="category" class="form-control">
+                                                <select name="category_id" id="category" class="form-control">
                                                     <option value="">Select Category</option>
                                                     @if($category->count() > 0)
                                                     @foreach($category as $categorys)
@@ -106,7 +125,6 @@
                                                 </select>
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="inputAddress4" class="col-sm-3 col-form-label">Attribute
                                             </label>
@@ -119,11 +137,25 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="row mb-3">
+                                            <label for="inputAddress4" class="col-sm-3 col-form-label">Brand</label>
+                                            <div class="col-sm-9">
+                                                <select name="brand_id" id="category" class="form-control">
+                                                    <option value="">Select Brand</option>
+                                                    @if($brand->count() > 0)
+                                                    @foreach($brand as $brands)
+                                                    <option value="{{$brands->id}}">
+                                                        {{$brands->text}}
+                                                    </option>
+                                                    @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="row mb-3">
                                             <label for="inputAddress4" class="col-sm-3 col-form-label">Tax</label>
                                             <div class="col-sm-9">
-                                                <select name="attributsse_id" id="attributesss_id"
+                                                <select name="tax_id" id="attributes_id"
                                                     class="form-control ">
                                                     <option value="">Select Tax</option>
                                                     @if($tax->count() > 0)
@@ -190,7 +222,7 @@
                                                         </div>
                                                         <div class="col-sm-12 my-2">
                                                             <input type="text" class="form-control"
-                                                                id="inputEnterYourName" placeholder="Enter Breadth" name="breadth[]">
+                                                                id="inputEnterYourName" placeholder="Enter Breadth" name="breath[]">
                                                         </div>
                                                         <div class="col-sm-12 my-2">
                                                             <input type="text" class="form-control"
@@ -204,20 +236,26 @@
                                                             <label for="inputEnterYourName"
                                                                 class="col-sm-3 col-form-label">Product
                                                                 Image</label>
-                                                                @php $count =1; @endphp
+                                                                @php $count =1;
+                                                                $imageCounter =rand(111,999); @endphp
                                                             <div class=" col-sm-9">
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
+                                                                    <input type="hidden" name="imageValue[]" value="imageValue_{{$count}}">
                                                                         <button type="button"
                                                                             class="btn btn-primary my-2 " id="addAttrImages"
                                                                             onclick="addImages1('attrImage_{{$count}}','')">Add Images</button>
                                                                     </div>
-
-                                                                    <div class="col-sm-8" id="attrImage_{{$count}}">
+                                                                   
+                                                                    
+                                                                            <div class="col-sm-8" id="attrImage_{{$count}}">
+                                                                            <div id="attrImage_{{$imageCounter}}">
+                                                                   
                                                                         <input type="file" class="form-control"
                                                                             id="inputEnterYourName"
                                                                             placeholder="Enter Product Name" name="attr_image_{{$count}}[]">
                                                                     </div>
+                                                                 </div>
                                                                     <div class="col-sm-8">
                                                                         @if($count!==1)
                                                                     <button type="submit"
@@ -269,38 +307,12 @@ function savaData(id, tax) {
 }
 </script>
 <script>
-    let imageCounter = 1;
-    let count= 111;
-$("#addAttributeButton").click(function(e) {
-    
-    var html = '';
-    var sizeData = $('#size_id').html();
-    var colorData = $('#color_id').html();
-    imageCounter++;
-    const attrImage = 'attrImage_' + imageCounter;
-    html += ' <div class="col-sm-4"><select name="color" id="attributesss_id" class="form-control ">' +
-        colorData + '</select></div>';
-    html += ' <div class="col-sm-4"> <select name="size" id="attributesss_id"  class="form-control ">' +
-        sizeData + '</select></div>';
-        html +='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter Sku" name="sku[]"></div>';
-        html+='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter MRP" name="mrp[]"></div>';
-        html+='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter price" name="price[]"> </div>';
-        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter Length" name="length[]"> </div>';
-        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control"id="inputEnterYourName" placeholder="Enter Height" name="height[]"></div>';
-        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter weight" name="weigth[]"></div>';
-        html += '<div class="row mb-3"><label for="inputEnterYourName" class="col-sm-3 col-form-label">Product Image</label>' +
-        '<div class="col-sm-9"><div class="row">' +
-        '<div class="col-sm-12"><button type="button" class="btn btn-primary my-2 " id="addAttrImages" onclick="addImages1(\''+attrImage+'\',\''+count+'\')">Add Images</button></div>' +
-        '<div class="col-sm-8" id="attrImage_'+ imageCounter+'"><input type="file" name="attrImage'+ imageCounter+'"[]" class="form-control" id="inputEnterYourName" placeholder="Enter Product Name"></div>' +
-        '</div></div></div><hr/>';
+  
 
-    $('#addAttr').append(html);
-
-})
-
+let imageCounter = 1990;
 function addImages1(id) {
-    imageCounter++;
-    const imageId = 'attrImage_' + imageCounter;
+   
+    const imageId = 'attrImage_' + imageCounter +'';
     const html = `
         <div class="col-sm-12 my-3" id="${imageId}">
             <input type="file" class="form-control" placeholder="Enter Product Name" name="attr_image_${imageCounter}[]">
@@ -313,6 +325,34 @@ function addImages1(id) {
 function removeImage(id) {
     $('#' + id).remove();
 }
+
+    let count= 111;
+$("#addAttributeButton").click(function(e) {
+    imageCounter++;
+    var html = '';
+    count++;
+    var sizeData = $('#size_id').html();
+    var colorData = $('#color_id').html();
+    const attrImage = 'attrImage_' + count;
+    html += ' <div class="col-sm-4"><select name="color" id="color_id[]" class="form-control ">' +
+        colorData + '</select></div>';
+    html += ' <div class="col-sm-4"> <select name="size" id="size_id[]"  class="form-control ">' +
+        sizeData + '</select></div>';
+        html +='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter Sku" name="sku[]"></div>';
+        html+='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter MRP" name="mrp[]"></div>';
+        html+='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter price" name="price[]"> </div>';
+        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter Length" name="length[]"> </div>';
+        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control"id="inputEnterYourName" placeholder="Enter Height" name="height[]"></div>';
+        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter weight" name="weigth[]"></div>';
+        html += '<div class="row mb-3"><label for="inputEnterYourName" class="col-sm-3 col-form-label">Product Image</label>' +
+        '<div class="col-sm-9"><div class="row">' +
+        '<div class="col-sm-12"><input type="hidden"  name="imageValue[]" value="imageValue_'+count+'"><button type="button" class="btn btn-primary my-2 " id="addAttrImages" onclick="addImages1(\''+attrImage+'\',\''+count+'\')">Add Images</button></div>' +
+        '<div class="" id="attrImage_'+count+'"> <div class="col-sm-8" id="attrImage_'+imageCounter+'"><input type="file" name="attr_image_'+ count+'"[]" class="form-control" id="inputEnterYourName" placeholder="Enter Product Name"></div></div>' +
+        '</div></div></div><hr/>';
+
+    $('#addAttr').append(html);
+
+})
 
 </script>
 <script>
@@ -334,12 +374,13 @@ $(document).ready(function() {
                     if (result.status == 'Success') {
                         console.log(result);
                         let html =
-                            '<select name="attribute_id" class="attribute_id" id="attribute_id" multiple>';
+                            '<select name="attribute_id[]" class="attribute_id" id="attribute_id" multiple>';
                         jQuery.each(result.data.data, function(key, val) {
                             jQuery.each(val.values, function(attrKey, attrVal) {
-                                html += '<option value="' + attrVal.id +
+                                console.log("value"+ attrKey, attrVal);
+                                html += '<option value="' + attrVal+
                                     '"/>' + val.attribute.name + '(' +
-                                    attrVal.value + ')</option>';
+                                    attrVal+ ')</option>';
                             });
                         });
                         html += '</select>';

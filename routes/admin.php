@@ -45,3 +45,4 @@ Route::POST('/tax/update', [TaxController::class ,'store']);
 Route::get('/product', [ProductController::class ,'index']);
 Route::get('/products/Views/{id?}', [ProductController::class ,'viewProduct']);
 Route::post('/getAttributes', [ProductController::class ,'getAttributes']);
+Route::post('/product/store', [ProductController::class ,'store']);
