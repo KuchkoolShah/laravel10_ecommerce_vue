@@ -241,7 +241,7 @@
                                                             <div class=" col-sm-9">
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
-                                                                    <input type="hidden" name="imageValue[]" value="imageValue_{{$count}}">
+                                                                    <input type="hidden" name="imageValue[]" value="{{$count}}">
                                                                         <button type="button"
                                                                             class="btn btn-primary my-2 " id="addAttrImages"
                                                                             onclick="addImages1('attrImage_{{$count}}','')">Add Images</button>
@@ -310,12 +310,12 @@ function savaData(id, tax) {
   
 
 let imageCounter = 1990;
-function addImages1(id) {
-   
+function addImages1(id, count) {
+    imageCounter++;
     const imageId = 'attrImage_' + imageCounter +'';
     const html = `
         <div class="col-sm-12 my-3" id="${imageId}">
-            <input type="file" class="form-control" placeholder="Enter Product Name" name="attr_image_${imageCounter}[]">
+            <div class="" id="attrImage_'${imageCounter}'"> <input type="file" class="form-control" placeholder="Enter Product Name" name="attr_image_${count}[]">
             <button type="button" class="btn btn-danger my-2" onclick="removeImage('${imageId}')">Remove Image</button>
         </div>
     `;
@@ -333,7 +333,9 @@ $("#addAttributeButton").click(function(e) {
     count++;
     var sizeData = $('#size_id').html();
     var colorData = $('#color_id').html();
+    const id = 'addAttr_' + count+'';
     const attrImage = 'attrImage_' + count;
+    const removeAttrImage = 'attrImage_' + imageCounter;
     html += ' <div class="col-sm-4"><select name="color" id="color_id[]" class="form-control ">' +
         colorData + '</select></div>';
     html += ' <div class="col-sm-4"> <select name="size" id="size_id[]"  class="form-control ">' +
@@ -346,7 +348,7 @@ $("#addAttributeButton").click(function(e) {
         html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter weight" name="weigth[]"></div>';
         html += '<div class="row mb-3"><label for="inputEnterYourName" class="col-sm-3 col-form-label">Product Image</label>' +
         '<div class="col-sm-9"><div class="row">' +
-        '<div class="col-sm-12"><input type="hidden"  name="imageValue[]" value="imageValue_'+count+'"><button type="button" class="btn btn-primary my-2 " id="addAttrImages" onclick="addImages1(\''+attrImage+'\',\''+count+'\')">Add Images</button></div>' +
+        '<div class="col-sm-12"><input type="hidden"  name="imageValue[]" value="'+count+'"><button type="button" class="btn btn-primary my-2 " id="addAttrImages" onclick="addImages1(\''+attrImage+'\',\''+count+'\')">Add Images</button></div>' +
         '<div class="" id="attrImage_'+count+'"> <div class="col-sm-8" id="attrImage_'+imageCounter+'"><input type="file" name="attr_image_'+ count+'"[]" class="form-control" id="inputEnterYourName" placeholder="Enter Product Name"></div></div>' +
         '</div></div></div><hr/>';
 
@@ -378,9 +380,7 @@ $(document).ready(function() {
                         jQuery.each(result.data.data, function(key, val) {
                             jQuery.each(val.values, function(attrKey, attrVal) {
                                 console.log("value"+ attrKey, attrVal);
-                                html += '<option value="' + attrVal+
-                                    '"/>' + val.attribute.name + '(' +
-                                    attrVal+ ')</option>';
+                                html += '<option value="' + attrVal+ '"/>' + val.attribute.name + '(' +attrVal+ ')</option>';
                             });
                         });
                         html += '</select>';

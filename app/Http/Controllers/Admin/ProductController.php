@@ -20,6 +20,7 @@ use App\Traits\ApiResponse;
 use App\Traits\saveFile;
 use Redirect;
 use DB;
+use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     use ApiResponse;
@@ -61,6 +62,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
        // print_r($request->all());
+        
+                //   echo "<pre>";
+                //     print_r($request->all());
+                //     exit;
        try{
                 DB::beginTransaction();
                 $validation = Validator::make($request->all(), [
@@ -76,6 +81,7 @@ class ProductController extends Controller
                     return $this->error($validation->errors()->first(), 400,[]);
                     //return response()->json(['status' => 400, 'message' => $validation->errors()->first()]);
                 } else {
+                    //dd($request->image);
                     if ($request->hasFile('image')) {
                         if($request->id>0){
                             $image =Product::where('id', $request->id)->first();
@@ -118,11 +124,12 @@ class ProductController extends Controller
                     ['product_id' => $productId , 'category_id'=>$request->category_id,
                     'attribute_value_id'=>$val],
                 );
+                //dd($product_attr_id);
             }
               $attrImage =[];
-                foreach($request->imageValue as $key=>$val ){
-                    array_push($attrImage , $val);
-                }
+                // foreach($request->imageValue as $key=>$val ){
+                //     array_push($attrImage , $val);
+                // }
                 foreach($request->sku as $key=>$val ){
                  
                     $productAttr=ProductAttr::updateOrCreate(
@@ -139,37 +146,36 @@ class ProductController extends Controller
                             'weigth'=>$request->weigth[$key]
                         ],
                     );
-                    $product_attr_id =$product_attr_id->id;
-                    $imageVal='attr_image_'.$request->imageValue[$key];
+                  
+                    $product_attr_id =$productAttr->id;
+                    // echo "<pre>";
+                    // print_r($request->all());
+                    // exit;
+                    //dd($product_attr_id);
+                    //ProductAttrImages::where( ['product_id' => $productId ,"product_attr_id"=>$product_attr_id])->delete();
                     foreach($request->imageValue as $key=>$val){
-                        // if ($request->hasFile('image')) {
-                        //     if($request->id>0){
-                        //         //$image =ProductAttrImages::where('id', $request->id)->first();
-                        //         $image_path = "images/productsAttr/".$image->image."";
-                        //         if(File::exists($image_path)){
-                        //             File::delete($image_path);
-                        //         }
-                                $image_name ="images/productsAttr/".$request->name.time().'.'.$val->extension();
-                                $val->move(public_path('images/productsAttr/'), $image_name);
-                                ProductAttrImages::where( ['product_id' => $productId ,"product_attr_id"=>$product_attr_id])->delete();
-                                ProductAttrImages::Create(
-                                    ['product_id' => $productId ,"product_attr_id"=>$product_attr_id],
-                                    [
-                                        'image'         => $image_name,
-                                    ]
+                        //dd($val);
+                        $imageVal='attr_image_'.$val;
+                        foreach($request->$imageVal as $key=>$val1){
+                        //dd($val);
+                        $image_name = "images/productsAttr/".$request->name.time().'.'.$val1->extension();
+                         //dd($image_name);
+                         //dd($productId, $product_attr_id, $image_name);
+                                $val1->move(public_path('images/productsAttr/'), $image_name);
+                                $productAttrImg=ProductAttrImages::Create(
+                                    ['product_id' => $productId ,"product_attr_id"=>$product_attr_id, 'image'=> $image_name,],
+                                  
                                 );
-            
+                                //dd($productAttrImg);
                             }
-                        //     elseif($request->id>0){
-                        //     $image_name =Product::where('id', $request->id)->pluck('image')->first();
-                        //    }
-                   // }
-                //  }
+                            }
+                    DB::commit();
+                    //return response()->json(['status' => 200, 'message' => "Successfully updated"]);
+                        return $this->success(['reload'=>true],'Successfully updated');
                 }
-                DB::commit();
-                //return response()->json(['status' => 200, 'message' => "Successfully updated"]);
-                    return $this->success(['reload'=>true],'Successfully updated');
-            }
+                }
+              
+              
             }catch(e){
              DB::rollBack();
                 }
