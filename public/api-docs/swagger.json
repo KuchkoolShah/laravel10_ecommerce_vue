@@ -11,6 +11,10 @@
     {
       "name": "User",
       "description": "All User Operations"
+    },
+    {
+      "name": "Home",
+      "description": "All Home Data"
     }
   
   ],
