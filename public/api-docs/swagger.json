@@ -1,92 +1,201 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "description": "\n\nHeader -> api_key :  \n\n",
-    "version": "1.0.0",
-    "title": "Swagger App"
-  },
-  "host": "127.0.0.1:8000",
-  "basePath": "/api",
-  "tags": [
-    {
-      "name": "User",
-      "description": "All User Operations"
+    "swagger": "2.0",
+    "info": {
+      "description": "\n\nHeader -> api_key :  \n\n",
+      "version": "1.0.0",
+      "title": "Swagger App"
     },
-    {
-      "name": "Home",
-      "description": "All Home Data"
-    }
-  
-  ],
-  "paths": {
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "User Login",
-        "operationId": "login",
-        "produces": [
-          "application/json"
-        ],
-        "security": [
-          {
-            "APIKeyHeader": []
+    "host": "127.0.0.1:8000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "User",
+        "description": "All User Operations"
+      },
+      {
+        "name": "Product Home",
+        "description": "All  Product Home Data"
+      }
+    ],
+    "paths": {
+      "/auth/login": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "User Login",
+          "operationId": "login",
+          "produces": [
+            "application/json"
+          ],
+          "security": [
+            {
+              "APIKeyHeader": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Enter Email",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "description": "password",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Data"
+            }
           }
-        ],
-        "parameters": [
-          {
-            "name": "email",
-            "in": "formData",
-            "description": "Enter Email",
-            "required": true,
+        }
+      },
+      "/auth/register": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "User Register",
+          "operationId": "Register",
+          "produces": [
+            "application/json"
+          ],
+          "security": [
+            {
+              "APIKeyHeader": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "name",
+              "in": "formData",
+              "description": "Please Enter Name",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Enter Email",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "description": "password",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Data"
+            }
+          }
+        }
+      },
+      "/auth/logout": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Home data get",
+          "operationId": "Get Home Data",
+          "produces": [
+            "application/json"
+          ],
+          "security": [
+            {
+              "APIKeyHeader": []
+            }
+          ],
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "User logged out successfully"
+            },
+            "401": {
+              "description": "Unauthorized - User not logged in"
+            }
+          }
+        }
+      },
+      "/home/banner": {
+        "get": {
+          "tags": [
+            "Product Home"
+          ],
+          "security": [
+            {
+              "APIKeyHeader": []
+            }
+          ],
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Product fectch Successfully"
+            },
+            "401": {
+              "description": "Product fectch  not Successfully"
+            }
+          }
+        }
+      },
+      "getHeadercategoriesData": {
+        "get": {
+          "tags": [
+            "Product Home"
+          ],
+          "security": [
+            {
+              "APIKeyHeader": []
+            }
+          ],
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Category fectch Successfully"
+            },
+            "401": {
+              "description": "Category fectch  not Successfully"
+            }
+          }
+        }
+      }
+    },
+
+    "securityDefinitions": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "api-key"
+      }
+    },
+    "definitions": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+          "name": {
             "type": "string"
           },
-          {
-            "name": "password",
-            "in": "formData",
-            "description": "password",
-            "required": true,
+          "email": {
             "type": "string"
-          }  
-         
-        ],
-        "responses": {
-          "200": {
-            "description": "Data"
           }
         }
       }
-    }
-   
-    
-   
-  },
-  "securityDefinitions": {
-    "APIKeyHeader": {
-      "type": "apiKey",
-      "in": "header",
-      "name": "api-key"
-    }
-  },
-  "definitions": {
-    "user": {
-      "type": "object",
-      "properties": {
-        "user_id": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        }
-      }
-    }
-  },
-  "schemes": [
-    "http",
-    "https"
-  ]
-}
+    },
+    "schemes": [
+      "http",
+      "https"
+    ]
+  }

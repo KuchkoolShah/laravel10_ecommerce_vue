@@ -237,20 +237,20 @@
                                                                 class="col-sm-3 col-form-label">Product
                                                                 Image</label>
                                                                 @php $count =1;
-                                                                $imageCounter =rand(111,999); @endphp
+                                                                $imageCounter =111; @endphp
                                                             <div class=" col-sm-9">
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
                                                                     <input type="hidden" name="imageValue[]" value="{{$count}}">
                                                                         <button type="button"
                                                                             class="btn btn-primary my-2 " id="addAttrImages"
-                                                                            onclick="addImages1('attrImage_{{$count}}','')">Add Images</button>
+                                                                            onclick="addImages1('attrImage_{{$count}}','{{$count}}')">Add Images</button>
                                                                     </div>
-                                                                   
-                                                                    
+
+
                                                                             <div class="col-sm-8" id="attrImage_{{$count}}">
                                                                             <div id="attrImage_{{$imageCounter}}">
-                                                                   
+
                                                                         <input type="file" class="form-control"
                                                                             id="inputEnterYourName"
                                                                             placeholder="Enter Product Name" name="attr_image_{{$count}}[]">
@@ -307,7 +307,7 @@ function savaData(id, tax) {
 }
 </script>
 <script>
-  
+
 
 let imageCounter = 1990;
 function addImages1(id, count) {

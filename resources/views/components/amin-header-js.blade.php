@@ -21,12 +21,9 @@
 	<script src="{{asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
     <script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
 	<script src="{{asset('assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
-	<script src="{{asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
 	<script src="{{asset('jqueryplugin/jquery.multi-select.min.js')}}"></script>
 
 	<script src="{{asset('jqueryplugin/jquery.multi-select.js')}}"></script>
-
-	<script src='https://cdn.tiny.cloud/1/vdqx2klew412up5bcbpwivg1th6nrh3murc6maz8bukgos4v/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
 
 	<script>
 $(document).ready(function() {
@@ -44,7 +41,7 @@ $(document).ready(function() {
     });
 });
 	</script>
-	<script>
+	{{-- <script>
 $(document).ready(function() {
     $('#example').DataTable();
 });
@@ -59,8 +56,8 @@ $(document).ready(function() {
     table.buttons().container()
         .appendTo('#example2_wrapper .col-md-6:eq(0)');
 });
-	</script>
-	
+	</script> --}}
+
 	<script>
 $(document).ready(function(f) {
     $('#formSubmit').on('submit', (function(e) {
@@ -149,18 +146,18 @@ function deleteData(id, table) {
         }
     });
     } else {
-      
+
     }
 
 }
 	</script>
 
-<script>
+{{-- <script>
 		tinymce.init({
 		  selector: '#mytextarea'
 		});
-	</script>
-
+	</script> --}}
+{{--
 <script type="text/javascript">
     $(function(){
         $('#attribute_id').multiSelect();
@@ -185,4 +182,4 @@ function deleteData(id, table) {
             'modalHTML': '<div class="multi-select-modal">'
         });
     });
-    </script>
+    </script> --}}

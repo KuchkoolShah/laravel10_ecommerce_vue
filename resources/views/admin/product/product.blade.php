@@ -35,7 +35,7 @@
             <div class="card-body">
                 <div class="row row-cols-auto g-3">
                     <div class="col-md-4">
-                    <a href="{{url('admin/products/Views')}}/0">Product</a>
+                    <a  class="btn btn-outline-primary px-5 mb-2" href="{{url('admin/products/Views')}}/0">Product</a>
 
                     </div>
                     <div class="col-md-4">

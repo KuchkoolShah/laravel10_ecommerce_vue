@@ -62,7 +62,7 @@
                             @foreach($data as $datas)
                             <tr>
                                 <td>{{$datas->id}}</td>
-                                <td>{{$datas->singleAttribute->name}}</td>
+                                <td>{{$datas->singleAttribute->name ?? ''}}</td>
                                 <td>{{$datas->value}}</td>
                                 <td>
                                     <button type="button" class="btn btn-outline-primary px-5 mb-2"

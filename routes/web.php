@@ -17,7 +17,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return redirect('admin/dashboard');
 });
 
@@ -25,13 +25,15 @@ Route::get('/login', function () {
   return view('auth.singIn');
 });
 
+Route::any('/{any}', function () {
+    return view('home');
+})->where('any' , '.*');
 
 Route::get('/apiDoc', function () {
   return view('index');
 });
 
-Route::GET('/create/admin' ,[AuthController::class,'createCustomer']);
-Route::GET('login/admin' ,[AuthController::class,'ShowLoginForm']);
+
 Route::POST('login/admin' ,[LoginController::class,'loginUser']);
 // Route::GET('/api-doc' ,[HomeController::class,'index']);
 Route::get('/createRole', function () {

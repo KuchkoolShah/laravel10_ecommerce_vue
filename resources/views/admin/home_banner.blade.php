@@ -73,7 +73,7 @@
                                         data-bs-toggle="modal" data-bs-target="#exampleExtraLargeModal"
                                         onclick="savaData('{{$home_banners->id}}','{{$home_banners->text}}','{{$home_banners->link}}','{{$home_banners->image}}' )">Update</button>
                                         <button type="button" class="btn btn-outline-danger px-5 mb-2"
-                                       
+
                                         onclick="deleteData('{{$home_banners->id}}' ,'home_banners' )">Delete</button>
                                 </td>
                             </tr>
@@ -178,7 +178,7 @@ function savaData(id, text, link, image) {
         var key_image = "{{URL::asset('images/upload.jpg')}}";
         $('#photo').prop('required' , false);
     } else {
-        var key_image = "{{URL::asset('' )}}/" + image + "";
+        var key_image = image;
         $('#photo').prop('required' , false);
     }
     var html = '<img src="' + key_image + '" id="imgPreview"  class="img-fluid rounded mt-5" id="imgPreview" >';

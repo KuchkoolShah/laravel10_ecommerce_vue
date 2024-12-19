@@ -86,6 +86,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('#btn_login').click(function() {
+            //alert("hi");
             var formData = $('#login_form').serialize();
 			console.log(formData);
             $.ajax({
@@ -98,8 +99,9 @@
                 data: formData,
                 success: function(data) {
                     if (data.status==200) {
+                        console.log(data);
                         window.location.href=data.url ;
-                       
+
                     } else {
                         $('#error-message-container').html(
                             '<div class="alert alert-danger">' + data.message + '</div>'

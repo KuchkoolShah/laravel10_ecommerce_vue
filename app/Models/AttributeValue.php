@@ -11,6 +11,6 @@ class AttributeValue extends Model
     protected $guarded = [];
 
     public function singleAttribute(){
-        return $this->hasOne(AttributeValue::class, 'id' , 'attribute_id');
+        return $this->hasOne(Attribute::class, 'id' , 'attribute_id');
     }
 }
