@@ -8,6 +8,7 @@ use App\Traits\ApiResponse;
 use App\Models\HomeBanner;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Product;
 class HomePageController extends Controller
 {
     use ApiResponse;
@@ -22,6 +23,7 @@ class HomePageController extends Controller
        $data=[];
        $data['banner'] = HomeBanner::get();
        $data['brands'] = Brand::get();
+       $data['products'] = Product::with('productAttributes')->select('id','category_id','name','slug','image','item_code')->get();
        $data['categories'] = Category::with('products:id,category_id,name,slug,image,item_code')->where('parent_catetgory_id',null)->get();
       return $this->success(['data'=>$data], 'datta fetch Successfully');
     }
