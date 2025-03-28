@@ -26,14 +26,14 @@ class ProductController extends Controller
     use ApiResponse;
     use saveFile;
     public function index()
-    {    
+    {
           $product =Product::all();
         return view('admin.product.product', compact('product'));
     }
 
     public function viewProduct($id=0)
-    {    
-       
+    {
+
         if($id == 0){
             $product =Product::all();
             $attribute =Attribute::all();
@@ -54,15 +54,106 @@ class ProductController extends Controller
            } else {
             $data =Product::where('id',$id)->first();
            }
-        }  
+        }
         return view('admin.product.manage_product', get_defined_vars());
-       
-    }
 
-    public function store(Request $request)
+    }
+    public function store(Request $request){
+    //dd($request->all());
+    try {
+        DB::beginTransaction();
+
+        // Handle product image upload
+        $image_name = null;
+        if ($request->hasFile('image')) {
+            if ($request->id > 0) {
+                $existingProduct = Product::find($request->id);
+                if ($existingProduct && File::exists(public_path($existingProduct->image))) {
+                    File::delete(public_path($existingProduct->image));
+                }
+            }
+            $image_name = 'images/products/' . time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images/products/'), $image_name);
+        }
+
+        // Create or update product
+        $product = Product::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'category_id' => $request->category_id,
+                'keywords' => $request->keyword,
+                'tax_id' => $request->tax_id,
+                'brand_id' => $request->brand_id,
+                'description' => $request->mytextarea,
+                'item_code' => $request->item_code,
+                'image' => $image_name,
+            ]
+        );
+
+        // Store product attributes
+        ProductAttribute::where('product_id', $product->id)->delete();
+        foreach ($request->attribute_id as $attrId) {
+            ProductAttribute::create([
+                'product_id' => $product->id,
+                'category_id' => $request->category_id,
+                'attribute_value_id' => $attrId,
+            ]);
+        }
+
+        // Store product variations
+       // dd($request->sku);
+        foreach ($request->sku as $index => $sku) {
+            \Log::info(["sku"=>$sku ,"index"=> $index ]);
+            $productAttr = ProductAttr::updateOrCreate(
+                ['id' => 0],
+                [
+                    'product_id' => $product->id,
+                    'color_id' => $request->color_id[$index] ?? null,
+                    'size_id' => $request->size_id[$index] ?? null,
+                    'sku' => $sku,
+                    'price' => $request->price[$index] ?? 0,
+                    'mrp' => $request->mrp[$index] ?? 0,
+                    'length' => $request->length[$index] ?? null,
+                    'breadth' => $request->breath[$index] ?? null,
+                    'height' => $request->height[$index] ?? null,
+                    'weigth' => $request->weigth[$index] ?? null,
+                ]
+            );
+        }
+        $productId=$product->id;
+        $product_attr_id =$productAttr->id;
+        foreach($request->imageValue as $key=>$val){
+            //dd($val);
+            $imageVal='attr_image_'.$val;
+            foreach($request->$imageVal as $key=>$val1){
+            //dd($val);
+            $image_name = "images/productsAttr/".$request->name.time().'.'.$val1->extension();
+             //dd($image_name);
+             //dd($productId, $product_attr_id, $image_name);
+                    $val1->move(public_path('images/productsAttr/'), $image_name);
+                    $productAttrImg=ProductAttrImages::Create(
+                        ['product_id' => $productId ,"product_attr_id"=>$product_attr_id, 'image'=> $image_name,],
+
+                    );
+                    //dd($productAttrImg);
+                }
+                }
+
+        DB::commit();
+        return response()->json(['status' => 200, 'message' => "Successfully updated", 'reload' => true]);
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['status' => 500, 'message' => 'Something went wrong', 'error' => $e->getMessage()]);
+    }
+  }
+
+    public function store_backup(Request $request)
     {
        // print_r($request->all());
-        
+
                 //   echo "<pre>";
                 //     print_r($request->all());
                 //     exit;
@@ -110,14 +201,14 @@ class ProductController extends Controller
                         'description'        => $request->mytextarea,
                         'item_code'        => $request->item_code,
                         'image'        => isset($image_name) ? $image_name : null,
-                    
+
                     ]
                 );
                 $productId=$productId->id;
                 //dd($request->attribute_id);
                 ProductAttribute::where('product_id',$productId)->delete();
                 foreach($request->attribute_id as $key=>$val ){
-                  
+
                     $product_attr_id=ProductAttribute::updateOrCreate(
                     ['product_id' => $productId , 'category_id'=>$request->category_id,
                     'attribute_value_id'=>$val],
@@ -131,7 +222,7 @@ class ProductController extends Controller
                 //     array_push($attrImage , $val);
                 // }
                 foreach($request->sku as $key=>$val ){
-                 
+
                     $productAttr=ProductAttr::updateOrCreate(
                         ['id' => '0'],
                         [
@@ -146,7 +237,7 @@ class ProductController extends Controller
                             'weigth'=>$request->weigth[$key]
                         ],
                     );
-                  
+
                     $product_attr_id =$productAttr->id;
                     // echo "<pre>";
                     // print_r($request->all());
@@ -164,7 +255,7 @@ class ProductController extends Controller
                                 $val1->move(public_path('images/productsAttr/'), $image_name);
                                 $productAttrImg=ProductAttrImages::Create(
                                     ['product_id' => $productId ,"product_attr_id"=>$product_attr_id, 'image'=> $image_name,],
-                                  
+
                                 );
                                 //dd($productAttrImg);
                             }
@@ -174,12 +265,12 @@ class ProductController extends Controller
                         return $this->success(['reload'=>true],'Successfully updated');
                 }
                 }
-              
-              
+
+
             }catch(e){
              DB::rollBack();
                 }
-                
+
     }
 public function getAttributes(Request $request){
     $cat=$request->cat;

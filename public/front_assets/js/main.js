@@ -678,13 +678,20 @@ $('.popup-video').magnificPopup({
 /*=============================================
 	=    	 Slider Range Active  	         =
 =============================================*/
+var highPrice = parseInt($('#highPrice').val()) || 0;
+var lowPrice = parseInt($('#lowPrice').val()) || 0;
+
+console.log(highPrice, lowPrice);
+
 $("#slider-range").slider({
 	range: true,
-	min: 40,
-	max: 700,
-	values: [120, 570],
+	min: lowPrice,
+	max: highPrice,
+	values: [lowPrice, highPrice],
 	slide: function (event, ui) {
 		$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        $('#highPrice').val(ui.values[0]);
+        $('#lowPrice').val(ui.values[1]);
 	}
 });
 $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));

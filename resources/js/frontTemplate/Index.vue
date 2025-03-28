@@ -4,7 +4,7 @@
            <template v-slot:content>
           <section class="slider-area position-relative">
                 <div class="third-slider-active">
-                    <div   v-for="item in homeBanner" :key="item.id" class="third-slider-item third-slider-bg" style="background-image: url('/front_assets/img/slider/third_slider_bg.jpg');" >
+                    <div   v-for="item in homeBanner" :key="item.id" class="third-slider-item third-slider-bg" style="background-image: url('http://127.0.0.1:8000/asset/img/slider/third_slider_bg.jpg');" >
                         <div class="container custom-container-two">
                             <div class="third-slider-wrap">
                                 <div class="row align-items-center">
@@ -18,7 +18,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="third-slider-img">
-                                            <div class="img-shape" style="background-image: url('/front_assets/img/slider/third_slide_shape.png');" data-animation-in="zoomIn"
+                                            <div class="img-shape" style="background-image: url('http://127.0.0.1:8000/asset/img/slider/third_slide_shape.png');" data-animation-in="zoomIn"
                                                 data-delay-in="1" data-duration-in="1.5"></div>
                                             <img :src="item.image" alt="" class="main-img" data-animation-in="slideInRight2"
                                                 data-delay-in="1" data-duration-in="1.5">
@@ -83,7 +83,7 @@
                                 <div :class="'tab-pane '+ showActiveClass(1,index)" v-for="(catItem ,index) in getShortArray(6)" :key="catItem.id"
                                 :id="'cat-tab'+catItem.id" role="tabpanel" aria-labelledby="accessories-tab">
                                     <div class="trending-products-banner banner-animation">
-                                        <a href="shop-sidebar.html"><img src="./../asset/img/images/trending_banner03.jpg" alt=""></a>
+                                        <a href="shop-sidebar.html"><img src="http://127.0.0.1:8000/asset/img/images/trending_banner03.jpg" alt=""></a>
                                     </div>
                                     <div class="row trending-product-active" v-if="catItem.products.length > 0">
                                         <div class="col" v-for="item in catItem.products" :key="item.id">
@@ -331,6 +331,7 @@
 import Layout from './Layouts.vue';
 import axios from 'axios';
 import getUrlList from '../provider.js';
+import Category from './Category.vue';
 export default{
     name:"Index",
     components:{
@@ -338,6 +339,8 @@ Layout
     },
     data(){
 return {
+category:[],
+protucts:[],
 homeBanner:[],
 homeCategory:[],
 homebrands:[],

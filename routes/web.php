@@ -25,16 +25,16 @@ Route::get('/login', function () {
   return view('auth.singIn');
 });
 
-Route::any('/{any}', function () {
-    return view('home');
-})->where('any' , '.*');
+// Route::any('/{any}', function () {
+//     return view('home');
+// })->where('any' , '.*');
 
-Route::get('/apiDoc', function () {
-  return view('index');
-});
+// Route::get('/apiDoc', function () {
+//   return view('index');
+// });
 
 
-Route::POST('login/admin' ,[LoginController::class,'loginUser']);
+Route::POST('/login/admin' ,[LoginController::class,'loginUser']);
 // Route::GET('/api-doc' ,[HomeController::class,'index']);
 Route::get('/createRole', function () {
    $role         =  new Role();

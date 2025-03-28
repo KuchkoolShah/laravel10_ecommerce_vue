@@ -37,6 +37,7 @@
                                     </div>
                                     <div class="form-body">
                                         <form class="row g-3"  id="login_form">
+                                            @csrf
                                             <div class="col-12">
                                                 <label for="inputEmailAddress" class="form-label">Email Address</label>
                                                 <input type="email" name="email" class="form-control" id="inputEmailAddress"

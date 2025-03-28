@@ -10,11 +10,11 @@ class CategoryAttribute extends Model
     use HasFactory;
     protected $table = 'category_attribute';
     protected $guarded = [];
-    
-   
+
+
 
     public function attribute(){
-        return $this->hasOne(Attribute::class, 'id' , 'attribute_id');
+        return $this->hasOne(Attribute::class, 'id' , 'attribute_id')->with('values');
     }
     public function values(){
         return $this->hasOne(AttributeValue::class, 'attribute_id' , 'attribute_id');

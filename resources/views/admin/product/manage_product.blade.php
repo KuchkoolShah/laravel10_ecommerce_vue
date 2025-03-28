@@ -327,34 +327,69 @@ function removeImage(id) {
 }
 
     let count= 111;
+    let attributeCounter = 1; // Counter for attributes
+
 $("#addAttributeButton").click(function(e) {
-    imageCounter++;
-    var html = '';
-    count++;
-    var sizeData = $('#size_id').html();
-    var colorData = $('#color_id').html();
-    const id = 'addAttr_' + count+'';
-    const attrImage = 'attrImage_' + count;
-    const removeAttrImage = 'attrImage_' + imageCounter;
-    html += ' <div class="col-sm-4"><select name="color" id="color_id[]" class="form-control ">' +
-        colorData + '</select></div>';
-    html += ' <div class="col-sm-4"> <select name="size" id="size_id[]"  class="form-control ">' +
-        sizeData + '</select></div>';
-        html +='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter Sku" name="sku[]"></div>';
-        html+='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter MRP" name="mrp[]"></div>';
-        html+='<div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter price" name="price[]"> </div>';
-        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter Length" name="length[]"> </div>';
-        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control"id="inputEnterYourName" placeholder="Enter Height" name="height[]"></div>';
-        html+=' <div class="col-sm-12 my-2"><input type="text" class="form-control" id="inputEnterYourName" placeholder="Enter weight" name="weigth[]"></div>';
-        html += '<div class="row mb-3"><label for="inputEnterYourName" class="col-sm-3 col-form-label">Product Image</label>' +
-        '<div class="col-sm-9"><div class="row">' +
-        '<div class="col-sm-12"><input type="hidden"  name="imageValue[]" value="'+count+'"><button type="button" class="btn btn-primary my-2 " id="addAttrImages" onclick="addImages1(\''+attrImage+'\',\''+count+'\')">Add Images</button></div>' +
-        '<div class="" id="attrImage_'+count+'"> <div class="col-sm-8" id="attrImage_'+imageCounter+'"><input type="file" name="attr_image_'+ count+'"[]" class="form-control" id="inputEnterYourName" placeholder="Enter Product Name"></div></div>' +
-        '</div></div></div><hr/>';
+    attributeCounter++;
+    const attrId = `attr_${attributeCounter}`;
+    const sizeData = $('#size_id').html();
+    const colorData = $('#color_id').html();
+
+    const html = `
+        <div class="row mb-3" id="${attrId}">
+            <div class="col-sm-4">
+                <select name="color_id[${attributeCounter}]" class="form-control">
+                    ${colorData}
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <select name="size_id[${attributeCounter}]" class="form-control">
+                    ${sizeData}
+                </select>
+            </div>
+            <div class="col-sm-12 my-2">
+                <input type="text" class="form-control" placeholder="Enter Sku" name="sku[${attributeCounter}]">
+            </div>
+            <div class="col-sm-12 my-2">
+                <input type="text" class="form-control" placeholder="Enter MRP" name="mrp[${attributeCounter}]">
+            </div>
+            <div class="col-sm-12 my-2">
+                <input type="text" class="form-control" placeholder="Enter Price" name="price[${attributeCounter}]">
+            </div>
+            <div class="col-sm-12 my-2">
+                <input type="text" class="form-control" placeholder="Enter Length" name="length[${attributeCounter}]">
+            </div>
+            <div class="col-sm-12 my-2">
+                <input type="text" class="form-control" placeholder="Enter Breadth" name="breath[${attributeCounter}]">
+            </div>
+            <div class="col-sm-12 my-2">
+                <input type="text" class="form-control" placeholder="Enter Height" name="height[${attributeCounter}]">
+            </div>
+            <div class="col-sm-12 my-2">
+                <input type="text" class="form-control" placeholder="Enter Weight" name="weigth[${attributeCounter}]">
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Product Image</label>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="imageValue[]" value="${attributeCounter}">
+                            <button type="button" class="btn btn-primary my-2" onclick="addImages1('${attrId}', '${attributeCounter}')">Add Images</button>
+                        </div>
+                        <div class="col-sm-12" id="attrImage_${attrId}">
+                            <div id="attrImage_${attrId}_${imageCounter}">
+                                <input type="file" class="form-control" name="attr_image_${attributeCounter}[]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    `;
 
     $('#addAttr').append(html);
-
-})
+});
 
 </script>
 <script>

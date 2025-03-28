@@ -3,6 +3,15 @@ export function getUrlList(){
     return {
         getHeadercategoriesData:''+baseUrl+'/getHeadercategoriesData',
         getHomeData:''+baseUrl+'/getHomeData',
+        getCategoryData:''+baseUrl+'/getCategoryData',
+        getUserData:''+baseUrl+'/getUserData',
+        getCartData:''+baseUrl+'/getCartData',
+        addToCart:''+baseUrl+'/addToCart',
+
+
+
+
+
     }
 }
 

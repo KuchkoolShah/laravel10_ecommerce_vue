@@ -25,3 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //HomeController
 Route::get('/getHomeData', [HomePageController::class, 'getHomeData']);
 Route::get('/getHeadercategoriesData', [HomePageController::class, 'getCategories']);
+Route::Post('/getCategoryData/{slug?}', [HomePageController::class, 'getCategoryData']);
+Route::post('/getUserData', [HomePageController::class, 'getUserData']);
+Route::post('/getCartData', [HomePageController::class, 'getCartData']);
+Route::post('/addToCart', [HomePageController::class, 'addToCart']);
+
+
+

@@ -13,4 +13,7 @@ class AttributeValue extends Model
     public function singleAttribute(){
         return $this->hasOne(Attribute::class, 'id' , 'attribute_id');
     }
+    public function categoryAttribute(){
+        return $this->belongsTo(CategoryAttribute::class, 'id' , 'attribute_id');
+    }
 }

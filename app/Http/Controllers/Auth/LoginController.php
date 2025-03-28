@@ -25,6 +25,7 @@ class LoginController extends Controller
             $cred = array('email'=>$request->email , 'password'=>$request->password);
             //dd($cred);
             if(Auth::attempt($cred , false)){
+                //dd("404");
                 if(Auth::User()->hasRole('admin')){
                 return response()->json(['status'=>200 , 'meaasage'=>"Admin  User" , "url"=>"admin/dashboard"]);
                 }else{
