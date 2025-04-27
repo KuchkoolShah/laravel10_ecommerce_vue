@@ -25,9 +25,9 @@ Route::get('/login', function () {
   return view('auth.singIn');
 });
 
-// Route::any('/{any}', function () {
-//     return view('home');
-// })->where('any' , '.*');
+Route::any('/{any}', function () {
+    return view('home');
+})->where('any' , '.*');
 
 // Route::get('/apiDoc', function () {
 //   return view('index');

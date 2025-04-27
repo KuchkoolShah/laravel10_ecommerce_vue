@@ -119,7 +119,33 @@ class HomePageController extends Controller
                 return $this->success(['data'=>get_defined_vars()], 'Successfully data fetched');
             }
         }
+
         public function addToCart(Request $request){
+
+            $userToken = TempUsers::where('token', '12345678')->first();
+
+            if (!$userToken) {
+                return $this->error('Invalid token.');
+            }
+
+            $data = Cart::updateOrCreate(
+                [
+                    'product_id' => 36,
+                    'user_id' => $userToken->user_id,
+                    'product_attr_id' => 26,
+                ],
+                [
+                    'qty' => 1,
+                    'user_type' => $userToken->user_type,
+                ]
+            );
+
+            return $this->success(['data'=>get_defined_vars()], 'Successfully data fetched');
+
+
+           }
+
+        public function addToCart_backup(Request $request){
             $valadition = Validator::make($request->all() , [
                    'token' => 'required|exists:temp_users|max:255',
                    'product_id' => 'required|exists:products|max:255',
