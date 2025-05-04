@@ -59,14 +59,10 @@
   export default {
     name: "NewArrivalProducts",
     props: {
-      homeproducts: {
-        type: Array,
-        required: true,
-      },
-      showActiveClass: {
-        type: Function,
-        required: true,
-      },
+      homeproducts: [],
+      homeCategory: [],
+      showActiveClass:Function,
+      addToCart:Function,
       getShortArray: {
         type: Function,
         required: true,
